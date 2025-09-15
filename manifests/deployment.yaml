@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osrm-deployment
+  labels:
+    app: osrm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: osrm
+  template:
+    metadata:
+      labels:
+        app: osrm
+    spec:
+      containers:
+      - name: osrm
+        image: ghcr.io/rapour/osrm-backend-dubai-baked:v0.1.0
+        command: 
+        - osrm-routed
+        - --algorithm
+        - ch
+        - /data/dubai.osrm
+        ports:
+        - containerPort: 5000
