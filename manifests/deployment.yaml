@@ -24,3 +24,15 @@ spec:
         - /data/dubai.osrm
         ports:
         - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /route/v1/driving/55.157032,25.100368;55.207672,25.057198?steps=false
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /route/v1/driving/55.157032,25.100368;55.207672,25.057198?steps=false
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3
