@@ -1,0 +1,17 @@
+kind: Application
+metadata:
+  name: osrm
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rapour/osrm-dubai.git
+    targetRevision: HEAD                              
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
