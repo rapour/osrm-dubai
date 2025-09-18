@@ -11,6 +11,8 @@ spec:
     targetRevision: master
     helm:
       values: |
+        extraLabels:
+          access: "true"
         loadtest:
           name: osrm-loadtest
           locust_locustfile: main.py
