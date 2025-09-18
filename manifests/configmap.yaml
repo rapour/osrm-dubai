@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: locust-scripts
+data:
+  main.py: |
+    import random
+    import math
+    from locust import HttpUser, task
+    from locust.shape import LoadTestShape
+    
+    # Dubai
+    COORDINATES = [
+      (25.004301, 55.111769),
+      (25.012935, 55.271328),
+      (25.058273, 55.207813),
+      (25.147966, 55.201719),
+      (25.151928, 55.319736),
+      (25.167388, 55.402563),
+      (25.161484, 55.466936),
+      (25.251179, 55.302141),
+      (25.213523, 55.464619),
+      (25.268799, 55.516031),
+      (25.284555, 55.401791),
+      (25.341893, 55.364969),
+      (25.324206, 55.438526),
+      (25.382844, 55.403335),
+      (25.388815, 55.505903),
+      (25.401919, 55.475176),
+      (25.419827, 55.449942),
+      (25.403702, 55.506075),
+      (25.129240, 55.426081),
+      (25.133125, 55.220430),
+      (25.162780, 55.304624),
+    ]
+
+
+    class QuickstartUser(HttpUser):
+
+        @task
+        def index(self):
+            
+            origin, destination = random.sample(COORDINATES, 2)
+            
+            self.client.get(f"/route/v1/driving/{origin[1]},{origin[0]};{destination[1]},{destination[0]}?steps=true")
+
+    class WaveShape(LoadTestShape):
+      def tick(self):
+          run_time = self.get_run_time()
+          users = round(50 + 30 * math.sin(run_time / 30))
+          return (users, 5)

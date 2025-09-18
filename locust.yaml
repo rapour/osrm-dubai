@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: locust
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/deliveryhero/helm-charts
+    path: stable/locust
+    targetRevision: master
+    helm:
+      values: |
+        loadtest:
+          name: osrm-loadtest
+          locust_locustfile: main.py
+          locust_locustfile_configmap: "locust-scripts"
+          locust_host: http://osrm-service:80
+          locustCmd: "/opt/venv/bin/locust"
+        worker:
+          replicas: 2
+        master:
+          args:
+          - "--autostart"
+          - "--expect-workers=2"
+          - "--users=50"
+          - "--spawn-rate=5"
+          - "--run-time=5m"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
