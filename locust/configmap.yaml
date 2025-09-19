@@ -47,5 +47,5 @@ data:
     class WaveShape(LoadTestShape):
       def tick(self):
           run_time = self.get_run_time()
-          users = round(50 + 30 * math.sin(run_time / 30))
+          users = round(100 + 100 * math.sin(run_time / 30))
           return (users, 5)

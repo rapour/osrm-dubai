@@ -5,29 +5,32 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/deliveryhero/helm-charts
-    path: stable/locust
-    targetRevision: master
-    helm:
-      values: |
-        extraLabels:
-          access: "true"
-        loadtest:
-          name: osrm-loadtest
-          locust_locustfile: main.py
-          locust_locustfile_configmap: "locust-scripts"
-          locust_host: http://osrm-service:80
-          locustCmd: "/opt/venv/bin/locust"
-        worker:
-          replicas: 2
-        master:
-          args:
-          - "--autostart"
-          - "--expect-workers=2"
-          - "--users=50"
-          - "--spawn-rate=5"
-          - "--run-time=5m"
+  sources:
+    - repoURL: https://github.com/deliveryhero/helm-charts
+      path: stable/locust
+      targetRevision: master
+      helm:
+        values: |
+          extraLabels:
+            access: "true"
+          loadtest:
+            name: osrm-loadtest
+            locust_locustfile: main.py
+            locust_locustfile_configmap: "locust-scripts"
+            locust_host: http://osrm-service:80
+            locustCmd: "/opt/venv/bin/locust"
+          worker:
+            replicas: 2
+          master:
+            args:
+            - "--autostart"
+            - "--expect-workers=2"
+            - "--users=50"
+            - "--spawn-rate=5"
+            - "--run-time=5m"
+    - repoURL: https://github.com/rapour/osrm-dubai.git
+      targetRevision: HEAD                              
+      path: locust
   destination:
     server: https://kubernetes.default.svc
     namespace: default

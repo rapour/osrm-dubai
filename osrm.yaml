@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/rapour/osrm-dubai.git
     targetRevision: HEAD                              
-    path: manifests
+    path: osrm
   destination:
     server: https://kubernetes.default.svc
     namespace: default
