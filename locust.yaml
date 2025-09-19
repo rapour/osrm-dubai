@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://github.com/deliveryhero/helm-charts
+    - repoURL: https://git.launchpad.net/~rapour/rapour/+git/delivery-hero-helm-charts
       path: stable/locust
       targetRevision: master
       helm:
@@ -20,15 +20,15 @@ spec:
             locust_host: http://osrm-service:80
             locustCmd: "/opt/venv/bin/locust"
           worker:
-            replicas: 2
+            replicas: 10
           master:
             args:
             - "--autostart"
             - "--expect-workers=2"
             - "--users=50"
             - "--spawn-rate=5"
-            - "--run-time=5m"
-    - repoURL: https://github.com/rapour/osrm-dubai.git
+            - "--run-time=1h"
+    - repoURL: https://git.launchpad.net/~rapour/rapour/+git/osrm-dubai
       targetRevision: HEAD                              
       path: locust
   destination:

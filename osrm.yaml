@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/rapour/osrm-dubai.git
+    repoURL: https://git.launchpad.net/~rapour/rapour/+git/osrm-dubai
     targetRevision: HEAD                              
     path: osrm
   destination:
