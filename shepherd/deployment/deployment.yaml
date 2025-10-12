@@ -16,7 +16,7 @@ spec:
       serviceAccountName: shepherd
       containers:
       - name: shepherd
-        image: ghcr.io/rapour/osrm-dubai-shepherd:v0.2.0
+        image: ghcr.io/rapour/osrm-dubai-shepherd:v0.3.0
         args: 
         - --locust-url
         - http://locust:8089

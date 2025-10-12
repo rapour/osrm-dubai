@@ -80,10 +80,10 @@ func getAverageNodeCPUPercent(ctx context.Context, metricsClient *metrics.Client
 func CPUToUserDiff(cpuPct float64, cfg Config) int {
 
 	if cpuPct <= cfg.CPUTargetPercent-cfg.HysteresisDelta {
-		return -1
+		return +1
 	}
 	if cpuPct >= cfg.CPUTargetPercent+cfg.HysteresisDelta {
-		return +1
+		return -1
 	}
 
 	return 0
