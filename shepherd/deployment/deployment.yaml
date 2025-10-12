@@ -16,6 +16,6 @@ spec:
       containers:
       - name: shepherd
         image: ghcr.io/rapour/osrm-dubai-shepherd:v0.1.0
-        command: 
+        args: 
         - --locust-url
         - http://locust:8089
