@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: cilium
   rules:
-  - host: locust.10.190.238.240.nip.io
+  - host: locust.10.120.246.221.nip.io
     http:
       paths:
       - path: /
@@ -27,7 +27,7 @@ metadata:
 spec:
   ingressClassName: cilium
   rules:
-  - host: argocd.10.190.238.240.nip.io
+  - host: argocd.10.120.246.221.nip.io
     http:
       paths:
       - path: /
