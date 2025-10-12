@@ -2,15 +2,13 @@
 package main
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
 	"os/signal"
-	"strings"
 	"syscall"
 	"time"
 
@@ -92,24 +90,19 @@ func CPUToUserDiff(cpuPct float64, cfg Config) int {
 }
 
 // send request to Locust master to set users
-func setLocustUsers(locustURL string, users int, spawnRate int) error {
-	body := map[string]interface{}{
-		"user_count": users,
-		"spawn_rate": spawnRate,
-	}
-	b, _ := json.Marshal(body)
-	// typical endpoint: POST /swarm
-	url := strings.TrimRight(locustURL, "/") + "/swarm"
-	req, _ := http.NewRequest(http.MethodPost, url, bytes.NewReader(b))
-	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{Timeout: 10 * time.Second}
-	resp, err := client.Do(req)
+func setLocustUsers(locustURL string, users, spawnRate int) error {
+	data := url.Values{}
+	data.Set("user_count", fmt.Sprintf("%d", users))
+	data.Set("spawn_rate", fmt.Sprintf("%d", spawnRate))
+
+	resp, err := http.PostForm(locustURL+"/swarm", data)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return fmt.Errorf("locust API returned status %d", resp.StatusCode)
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("unexpected status %d from locust /swarm", resp.StatusCode)
 	}
 	return nil
 }
