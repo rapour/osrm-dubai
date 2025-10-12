@@ -20,14 +20,14 @@ spec:
             locust_host: http://osrm-service:80
             locustCmd: "/opt/venv/bin/locust"
           worker:
-            replicas: 10
+            replicas: 2
           master:
             args:
-            - "--autostart"
             - "--expect-workers=2"
-            - "--users=50"
-            - "--spawn-rate=5"
-            - "--run-time=1h"
+            # - "--autostart"
+            # - "--users=50"
+            # - "--spawn-rate=5"
+            # - "--run-time=1h"
     - repoURL: https://git.launchpad.net/~rapour/rapour/+git/osrm-dubai
       targetRevision: HEAD                              
       path: locust

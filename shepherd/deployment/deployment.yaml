@@ -13,6 +13,7 @@ spec:
       labels:
         app: shepherd
     spec:
+      serviceAccountName: shepherd
       containers:
       - name: shepherd
         image: ghcr.io/rapour/osrm-dubai-shepherd:v0.1.0
