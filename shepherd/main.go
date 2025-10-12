@@ -71,7 +71,7 @@ func getAverageNodeCPUPercent(ctx context.Context, metricsClient *metrics.Client
 	if totalCap == 0 {
 		return -1, fmt.Errorf("total node CPU capacity is zero")
 	}
-
+	fmt.Printf("Total usage: %d, Total Cap: %d\n", totalUsage, totalCap)
 	avg := (float64(totalUsage) / float64(totalCap)) * 100.0
 	return avg, nil
 }
@@ -160,7 +160,7 @@ func main() {
 				fmt.Println("failed to set locust users:", err)
 				// don't change lastSetUsers so we retry next tick
 			} else {
-				fmt.Printf("set locust users -> %d\n", desired)
+				fmt.Printf("set locust users -> %d (average node cpu usage: %f, target: %f)\n", desired, cpuVal, c.CPUTargetPercent)
 				lastSetUsers = desired
 			}
 
