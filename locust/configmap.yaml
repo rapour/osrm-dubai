@@ -44,8 +44,8 @@ data:
             
             self.client.get(f"/route/v1/driving/{origin[1]},{origin[0]};{destination[1]},{destination[0]}?steps=true")
 
-    class WaveShape(LoadTestShape):
-      def tick(self):
-          run_time = self.get_run_time()
-          users = round(500 + 500 * math.sin(run_time / 300))
-          return (users, 20)
+    # class WaveShape(LoadTestShape):
+    #   def tick(self):
+    #       run_time = self.get_run_time()
+    #       users = round(500 + 500 * math.sin(run_time / 300))
+    #       return (users, 20)
