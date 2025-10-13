@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: access
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://git.launchpad.net/~rapour/rapour/+git/osrm-dubai
+    targetRevision: HEAD                              
+    path: access
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
